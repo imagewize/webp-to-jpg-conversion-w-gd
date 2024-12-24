@@ -14,11 +14,11 @@
  *
  * @return void
  *
- * chmod +x web-to-jpg-check-w-ym.php and #!/usr/bin/env beginning scrip to execute without php prefix
+ * chmod +x web-to-jpg-check-w-gd.php and #!/usr/bin/env beginning scrip to execute without php prefix
  * 
- * dry run: php web-to-jpg-check-w-ym.php --year=2022 --month=06 --dry-run
- * live run: php web-to-jpg-check-w-ym.php --year=2022 --month=06
- * No Parameters: Process all directories without filtering by year/month: php web-to-jpg-check-w-ym.php
+ * dry run: php web-to-jpg-check-w-gd.php --year=2022 --month=06 --dry-run
+ * live run: php web-to-jpg-check-w-gd.php --year=2022 --month=06
+ * No Parameters: Process all directories without filtering by year/month: php web-to-jpg-check-w-gd.php
  *
  * GD PHP library needed. Check: php -m | grep gd
  */
