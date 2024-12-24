@@ -12,24 +12,24 @@ Make the script executable is optional. To do so first
 
 add `#!/usr/bin/env` to the beginning of the script to execute file without php prefix. Then do the following to make the file executable on the system:
 ```sh
-chmod +x web-to-jpg-check-w-gd.php
+chmod +x webp-to-jpg-check-w-gd.php
 ```
 
 Run the script:
 
 - Dry run (only log actions without creating files):
 ```sh
-php web-to-jpg-check-w-gd.php --year=xxxx --month=xx --dry-run
+php webp-to-jpg-check-w-gd.php --year=xxxx --month=xx --dry-run
 ```
 
 - Live run (create missing JPG files):
 ```sh
-php web-to-jpg-check-w-gd.php --year=xxxx --month=xx
+php webp-to-jpg-check-w-gd.php --year=xxxx --month=xx
 ```
 
 - Process all directories without filtering by year/month:
 ```sh
-php web-to-jpg-check-w-gd.php
+php webp-to-jpg-check-w-gd.php
 ```
 
 ## Parameters
@@ -42,15 +42,15 @@ php web-to-jpg-check-w-gd.php
 
 To convert WebP images to JPG for June 2022 in dry-run mode:
 ```sh
-php web-to-jpg-check-w-gd.php --year=2022 --month=06 --dry-run
+php webp-to-jpg-check-w-gd.php --year=2022 --month=06 --dry-run
 ```
 
 To convert WebP images to JPG for June 2022 and actually create the files:
 ```sh
-php web-to-jpg-check-w-gd.php --year=2022 --month=06
+php webp-to-jpg-check-w-gd.php --year=2022 --month=06
 ```
 
 To process all directories without filtering by year/month:
 ```sh
-php web-to-jpg-check-w-gd.php
+php webp-to-jpg-check-w-gd.php
 ```
