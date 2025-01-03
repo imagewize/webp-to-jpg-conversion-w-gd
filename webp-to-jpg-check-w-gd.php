@@ -87,6 +87,7 @@ $jpgDir = '/var/www/autentical.com/public_html/wp-content/uploads/sites/42';
 // For local testing
 // $webpDir = '/Users/user/code/autentical.com/wp-content/webp-express/webp-images/doc-root/wp-content/uploads/sites/42';
 // $jpgDir = '/Users/user/code/autentical.com/wp-content/uploads/sites/42';
+
 // Get year and month from command-line arguments
 $options = getopt('', ['year:', 'month:', 'dry-run']);
 $year = $options['year'] ?? null;
