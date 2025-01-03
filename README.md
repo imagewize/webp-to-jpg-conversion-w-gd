@@ -6,6 +6,16 @@ This script scans WordPress uploads to identify missing JPG images, which may oc
 
 - PHP with GD library enabled. Check with: `php -m | grep gd`
 
+## Configuration
+
+The script is typically run from the root of your WordPress project. The paths `$webpDir` and `$jpgDir` in the script can be adjusted to match your server's directory structure and the location of your WebP and JPG files.
+
+Default paths are set to:
+```php
+$webpDir = '/var/www/autentical.com/public_html/wp-content/webp-express/webp-images/doc-root/wp-content/uploads/sites/42';
+$jpgDir = '/var/www/autentical.com/public_html/wp-content/uploads/sites/42';
+```
+
 ## Usage
 
 Make the script executable is optional. To do so first 
