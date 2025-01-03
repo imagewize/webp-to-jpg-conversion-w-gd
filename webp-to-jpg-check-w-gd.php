@@ -43,16 +43,17 @@ function convertWebpToJpgIfMissing($webpDir, $jpgDir, $year = null, $month = nul
 
     foreach ($iterator as $file) {
         if ($file->isFile() && $file->getExtension() === 'webp') {
-            // Construct paths for corresponding JPG
+            // Construct paths for corresponding JPG and PNG
             $relativePath = str_replace($webpDir, '', $file->getPathname());
-            $relativePath = preg_replace('/\.webp$/', '.jpg', $relativePath); // Replace .webp with .jpg
-            $relativePath = preg_replace('/\.jpg\.jpg$/', '.jpg', $relativePath); // Remove duplicate .jpg
-            $jpgPath = $jpgDir . $relativePath; // Construct final JPG path
+            $jpgRelativePath = preg_replace('/\.webp$/', '.jpg', $relativePath);
+            $pngRelativePath = preg_replace('/\.webp$/', '.png', $relativePath);
+            $jpgPath = $jpgDir . $jpgRelativePath;
+            $pngPath = $jpgDir . $pngRelativePath;
 
-            // Check if the JPG file exists
-            if (!file_exists($jpgPath)) {
+            // Check if either JPG or PNG file exists
+            if (!file_exists($jpgPath) && !file_exists($pngPath)) {
                 if ($dryRun) {
-                    echo "[Dry Run] Missing JPG in '$jpgDir': " . basename($jpgPath) . " will be added\n";
+                    echo "[Dry Run] Missing JPG/PNG in '$jpgDir': " . basename($jpgPath) . " will be added\n";
                     $missingJpgCount++;
                 } else {
                     // Ensure the target directory exists
