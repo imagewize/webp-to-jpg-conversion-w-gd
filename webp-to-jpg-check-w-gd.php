@@ -43,31 +43,44 @@ function convertWebpToJpgIfMissing($webpDir, $jpgDir, $year = null, $month = nul
 
     foreach ($iterator as $file) {
         if ($file->isFile() && $file->getExtension() === 'webp') {
-            // Construct paths for corresponding JPG and PNG
+            $filename = $file->getFilename();
             $relativePath = str_replace($webpDir, '', $file->getPathname());
-            $jpgRelativePath = preg_replace('/(\.jpg|\.png)?\.webp$/i', '.jpg', $relativePath);
-            $pngRelativePath = preg_replace('/(\.jpg|\.png)?\.webp$/i', '.png', $relativePath);
-            $jpgPath = $jpgDir . $jpgRelativePath;
-            $pngPath = $jpgDir . $pngRelativePath;
+            
+            if (preg_match('/\.jpg\.webp$/i', $filename)) {
+                // Convert .jpg.webp -> .jpg
+                $targetRelativePath = preg_replace('/\.webp$/i', '', $relativePath);
+            } elseif (preg_match('/\.png\.webp$/i', $filename)) {
+                // Convert .png.webp -> .png
+                $targetRelativePath = preg_replace('/\.webp$/i', '', $relativePath);
+            } else {
+                // Skip other patterns
+                continue;
+            }
+
+            $targetPath = $jpgDir . $targetRelativePath;
 
             // Check if either JPG or PNG file exists
-            if (!file_exists($jpgPath) && !file_exists($pngPath)) {
+            if (!file_exists($targetPath)) {
                 if ($dryRun) {
-                    echo "[Dry Run] No JPG/PNG found in '$jpgDir': " . basename($jpgPath) . " will be created\n";
+                    echo "[Dry Run] No JPG/PNG found in '$jpgDir': " . basename($targetPath) . " will be created\n";
                     $missingJpgCount++;
                 } else {
                     // Ensure the target directory exists
-                    $targetDir = dirname($jpgPath);
+                    $targetDir = dirname($targetPath);
                     if (!is_dir($targetDir)) {
                         mkdir($targetDir, 0755, true);
                     }
 
-                    // Convert WebP to JPG using GD library
+                    // Convert WebP to JPG or PNG using GD library
                     $webpImage = imagecreatefromwebp($file->getPathname());
                     if ($webpImage) {
-                        imagejpeg($webpImage, $jpgPath, 90); // Save as JPG with 90% quality
+                        if (preg_match('/\.jpg$/i', $targetPath)) {
+                            imagejpeg($webpImage, $targetPath, 90); // Save as JPG with 90% quality
+                        } elseif (preg_match('/\.png$/i', $targetPath)) {
+                            imagepng($webpImage, $targetPath); // Save as PNG
+                        }
                         imagedestroy($webpImage);
-                        echo "Converted: " . $file->getPathname() . " -> " . $jpgPath . "\n";
+                        echo "Converted: " . $file->getPathname() . " -> " . $targetPath . "\n";
                     } else {
                         echo "Failed to convert: " . $file->getPathname() . "\n";
                     }
